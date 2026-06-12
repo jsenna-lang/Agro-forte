@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>AgroForte - Mercado Sustentável & Maquinário</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+             transition: background-color 0.3s ease, color 0.3s ease;
+         }
+         
+         :root {
+             --primary: #2d6a1e;
+             --secondary: #4caf50;
+             --accent: #8bc34a;
+             --machinery-color: #ff9800; /* Cor temática para diferenciar máquinas */
+             --light: #f1f8e9;
+             --dark: #1b3a12;
+             --text: #333;
+             --white: #ffffff;
+             --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+             --accessibility-bg: #e0e0e0;
+             --accessibility-text: #222;
+         }
+
+         /* Estilos para o Modo de Alto Contraste */
+         body.high-contrast {
+             --primary: #fff200;
+             --secondary: #ffffff;
+             --accent: #fff200;
+             --machinery-color: #00ffff;
+             --light: #000000;
+             --dark: #000000;
+             --text: #ffffff;
+             --white: #121212;
+             --shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+             --accessibility-bg: #111111;
+             --accessibility-text: #ffffff;
+         }
+
+         body.high-contrast input, 
+         body.high-contrast textarea, 
+         body.high-contrast select {
+             background-color: #000000;
+             color: #ffffff;
+             border: 2px solid #fff200;
+         }
+
+         body.high-contrast .btn,
+         body.high-contrast .btn-add-cart {
+             background-color: #fff200 !important;
+             color: #000000 !important;
+             border: 2px solid #ffffff;
+         }
+
+         body.high-contrast .tag {
+             border-color: #fff200;
+             color: #fff200;
+             background: #000000;
+         }
+         body.high-contrast .tag.active {
+             background: #fff200;
+             color: #000000;
+         }
+         
+         body {
+             background-color: var(--light);
+             color: var(--text);
+             line-height: 1.6;
+             scroll-behavior: smooth;
+         }
+
+         /* Barra de Acessibilidade */
+         .accessibility-bar {
+             background-color: var(--accessibility-bg);
+             color: var(--accessibility-text);
+             padding: 0.5rem 2rem;
+             display: flex;
+             justify-content: flex-end;
+             gap: 1.5rem;
+             font-size: 0.9rem;
+             border-bottom: 1px solid rgba(0,0,0,0.1);
+         }
+
+         .accessibility-btn {
+             background: none;
+             border: none;
+             color: inherit;
+             cursor: pointer;
+             font-weight: 600;
+             display: flex;
+             align-items: center;
+             gap: 0.4rem;
+         }
+
+         .accessibility-btn:hover {
+             text-decoration: underline;
+         }
+         
+         /* Header */
+         header {
+             background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+             color: var(--white);
+             padding: 1rem 0;
+             position: sticky;
+             top: 0;
+             z-index: 1000;
+             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+         }
+         
+         .header-container {
+             max-width: 1200px;
+             margin: 0 auto;
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 0 2rem;
+         }
+         
+         .logo {
+             font-size: 2rem;
+             font-weight: bold;
+             display: flex;
+             align-items: center;
+             gap: 0.5rem;
+         }
+         
+         .logo i {
+             color: var(--accent);
+             font-size: 2.5rem;
+         }
+         
+         nav ul {
+             display: flex;
+             list-style: none;
+             gap: 2rem;
+         }
+         
+         nav a {
+             color: var(--white);
+             text-decoration: none;
+             font-weight: 500;
+             transition: all 0.3s ease;
+             padding: 0.5rem 1rem;
+             border-radius: 25px;
+         }
+         
+         nav a:hover {
+             background: rgba(255, 255, 255, 0.2);
+             transform: translateY(-2px);
+         }
+         
+         .cart-icon {
+             position: relative;
+             cursor: pointer;
+             font-size: 1.5rem;
+         }
+         
+         .cart-count {
+             position: absolute;
+             top: -10px;
+             right: -10px;
+             background: var(--accent);
+             color: var(--dark);
+             border-radius: 50%;
+             width: 25px;
+             height: 25px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 0.8rem;
+             font-weight: bold;
+         }
+         
+         /* Hero Section */
+         .hero {
+             background: linear-gradient(rgba(27, 58, 18, 0.8), rgba(27, 58, 18, 0.9)), url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+             background-size: cover;
+             background-position: center;
+             height: 60vh;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             text-align: center;
+             color: var(--white);
+             padding: 2rem;
+         }
+         
+         .hero-content h1 {
+             font-size: 3.5rem;
+             margin-bottom: 1rem;
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+         }
+         
+         .hero-content p {
+             font-size: 1.3rem;
+             margin-bottom: 2rem;
+             max-width: 600px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+         
+         .btn {
+             display: inline-block;
+             padding: 1rem 2rem;
+             background: var(--secondary);
+             color: var(--white);
+             text-decoration: none;
+             border-radius: 50px;
+             font-weight: bold;
+             transition: all 0.3s ease;
+             border: none;
+             cursor: pointer;
+             font-size: 1rem;
+         }
+         
+         .btn:hover {
+             background: var(--accent);
+             transform: translateY(-3px);
+             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+         }
+         
+         /* Sistema de Filtros e Busca */
+         .shop-controls {
+             max-width: 1200px;
+             margin: 3rem auto 1rem;
+             padding: 0 2rem;
+             display: flex;
+             flex-wrap: wrap;
+             justify-content: space-between;
+             align-items: center;
+             gap: 1.5rem;
+         }
+         
+         .search-box {
+             position: relative;
+             flex: 1;
+             min-width: 280px;
+         }
+         
+         .search-box input {
+             width: 100%;
+             padding: 0.8rem 1rem 0.8rem 2.5rem;
+             border: 2px solid #ddd;
+             border-radius: 30px;
+             font-size: 1rem;
+         }
+         
+         .search-box i {
+             position: absolute;
+             left: 1rem;
+             top: 50%;
+             transform: translateY(-50%);
+             color: #888;
+         }
+         
+         .filter-tags {
+             display: flex;
+             gap: 0.5rem;
+             flex-wrap: wrap;
+         }
+         
+         .tag {
+             padding: 0.5rem 1.2rem;
+             background: var(--white);
+             border: 2px solid var(--secondary);
+             color: var(--primary);
+             border-radius: 20px;
+             cursor: pointer;
+             font-weight: 600;
+             transition: all 0.2s ease;
+         }
+         
+         .tag.active, .tag:hover {
+             background: var(--secondary);
+             color: var(--white);
+         }
+         
+         /* Customização para a tag de máquinas */
+         .tag-maquinas {
+             border-color: var(--machinery-color);
+             color: var(--machinery-color);
+         }
+         
+         .tag-maquinas.active, .tag-maquinas:hover {
+             background: var(--machinery-color);
+             color: var(--white);
+         }
+         
+         /* Produtos */
+         .products-section {
+             max-width: 1200px;
+             margin: 0 auto 4rem;
+             padding: 0 2rem;
+         }
+         
+         .section-title {
+             text-align: center;
+             font-size: 2.5rem;
+             margin: 2rem 0;
+             color: var(--primary);
+         }
+         
+         .products-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+             gap: 2rem;
+         }
+         
+         .product-card {
+             background: var(--white);
+             border-radius: 15px;
+             overflow: hidden;
+             box-shadow: var(--shadow);
+             transition: transform 0.3s ease;
+             display: flex;
+             flex-direction: column;
+         }
+         
+         .product-card:hover {
+             transform: translateY(-10px);
+         }
+         
+         .product-image {
+             height: 200px;
+             overflow: hidden;
+             position: relative;
+         }
+         
+         .product-image img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+         }
+         
+         .delivery-badge {
+             position: absolute;
+             top: 10px;
+             right: 10px;
+             background: rgba(0, 0, 0, 0.7);
+             color: #fff;
+             padding: 0.2rem 0.6rem;
+             font-size: 0.75rem;
+             border-radius: 5px;
+         }
+         
+         .product-info {
+             padding: 1.5rem;
+             display: flex;
+             flex-direction: column;
+             flex-grow: 1;
+         }
+         
+         .product-title {
+             font-size: 1.3rem;
+             margin-bottom: 0.5rem;
+             color: var(--dark);
+         }
+         
+         .product-description {
+             color: #666;
+             margin-bottom: 1rem;
+             font-size: 0.9rem;
+             flex-grow: 1;
+         }
+         
+         .product-price {
+             font-size: 1.8rem;
+             font-weight: bold;
+             color: var(--primary);
+             margin-bottom: 1rem;
+         }
+         
+         .product-badge {
+             background: var(--accent);
+             color: var(--dark);
+             padding: 0.3rem 0.8rem;
+             border-radius: 20px;
+             font-size: 0.8rem;
+             display: inline-block;
+             margin-bottom: 0.5rem;
+             align-self: flex-start;
+             font-weight: 600;
+         }
+         
+         /* Estilo de badge específico para Máquinas */
+         .product-badge.badge-maquinas {
+             background: var(--machinery-color);
+             color: var(--white);
+         }
+         
+         .btn-add-cart {
+             width: 100%;
+             padding: 0.8rem;
+             background: var(--secondary);
+             color: var(--white);
+             border: none;
+             border-radius: 25px;
+             font-weight: bold;
+             cursor: pointer;
+             transition: background 0.3s ease;
+         }
+         
+         .btn-add-cart:hover {
+             background: var(--primary);
+         }
+         
+         /* Formulário de Vendas Expandido */
+         .sell-section {
+             background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
+             padding: 4rem 2rem;
+         }
+         
+         .sell-container {
+             max-width: 700px;
+             margin: 0 auto;
+             background: var(--white);
+             padding: 3rem;
+             border-radius: 20px;
+             box-shadow: var(--shadow);
+         }
+         
+         .form-row {
+             display: flex;
+             gap: 1rem;
+         }
+         
+         .form-row .form-group {
+             flex: 1;
+         }
+         
+         .form-group {
+             margin-bottom: 1.5rem;
+         }
+         
+         label {
+             display: block;
+             margin-bottom: 0.5rem;
+             font-weight: 500;
+             color: var(--dark);
+         }
+         
+         input, textarea, select {
+             width: 100%;
+             padding: 0.8rem;
+             border: 2px solid #ddd;
+             border-radius: 10px;
+             font-size: 1rem;
+             transition: border-color 0.3s ease;
+             background-color: #fff;
+         }
+         
+         input:focus, textarea:focus, select:focus {
+             outline: none;
+             border-color: var(--secondary);
+         }
+         
+         /* Carrinho Modal */
+         .modal {
+             display: none;
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             background: rgba(0,0,0,0.5);
+             z-index: 2000;
+             justify-content: center;
+             align-items: center;
+         }
+         
+         .modal-content {
+             background: var(--white);
+             padding: 2rem;
+             border-radius: 20px;
+             max-width: 600px;
+             width: 90%;
+             max-height: 80vh;
+             overflow-y: auto;
+         }
+         
+         .cart-item {
+             display: flex;
+             justify-content: space-between;
+             align-items: center;
+             padding: 1rem 0;
+             border-bottom: 1px solid #eee;
+             gap: 1rem;
+         }
+         
+         .cart-item-info {
+             display: flex;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .cart-item-img {
+             width: 50px;
+             height: 50px;
+             object-fit: cover;
+             border-radius: 8px;
+         }
+         
+         .remove-item {
+             color: #ff4444;
+             cursor: pointer;
+             font-size: 1.2rem;
+             transition: transform 0.2s;
+         }
+         
+         .remove-item:hover {
+             transform: scale(1.2);
+         }
+         
+         .total {
+             font-size: 1.5rem;
+             font-weight: bold;
+             text-align: right;
+             margin-top: 1.5rem;
+             color: var(--primary);
+         }
+         
+         /* Footer */
+         footer {
+             background: var(--dark);
+             color: var(--white);
+             text-align: center;
+             padding: 2rem;
+         }
+         
+         .social-icons {
+             margin-bottom: 1rem;
+         }
+         
+         .social-icons a {
+             color: var(--white);
+             font-size: 1.5rem;
+             margin: 0 0.5rem;
+             transition: color 0.3s ease;
+         }
+         
+         .social-icons a:hover {
+             color: var(--accent);
+         }
+         
+         @media (max-width: 768px) {
+             .header-container {
+                 flex-direction: column;
+                 gap: 1rem;
+             }
+             nav ul {
+                 gap: 1rem;
+             }
+             .hero-content h1 {
+                 font-size: 2.5rem;
+             }
+             .form-row {
+                 flex-direction: column;
+                 gap: 0;
+             }
+             .shop-controls {
+                 flex-direction: column;
+                 align-items: stretch;
+             }
+             .accessibility-bar {
+                 justify-content: center;
+                 flex-wrap: wrap;
+             }
+         }
+     </style>
+</head>
+<body>
+
+     <div class="accessibility-bar">
+         <button class="accessibility-btn" onclick="alterarFonte(1)" title="Aumentar Texto"><i class="fas fa-font"></i> Aumentar Letra</button>
+         <button class="accessibility-btn" onclick="alterarFonte(-1)" title="Diminuir Texto"><i class="fas fa-font" style="font-size: 0.8rem;"></i> Diminuir Letra</button>
+         <button class="accessibility-btn" id="btnOuvir" onclick="toggleLeitura()" title="Ouvir Página"><i class="fas fa-volume-up"></i> <span id="txtOuvir">Ler Página</span></button>
+         <button class="accessibility-btn" onclick="toggleContraste()" title="Alternar Contraste"><i class="fas fa-adjust"></i> Contraste</button>
+     </div>
+
+     <header>
+         <div class="header-container">
+             <div class="logo">
+                 <i class="fas fa-seedling"></i>
+                 AgroForte
+             </div>
+             <nav>
+                 <ul>
+                     <li><a href="#home">Home</a></li>
+                     <li><a href="#produtos">Produtos</a></li>
+                     <li><a href="#vender">Vender</a></li>
+                     <li><a href="#contato">Contato</a></li>
+                 </ul>
+             </nav>
+             <div class="cart-icon" onclick="openCart()">
+                 <i class="fas fa-shopping-cart"></i>
+                 <span class="cart-count" id="cartCount">0</span>
+             </div>
+         </div>
+     </header>
+     
+     <section class="hero" id="home">
+         <div class="hero-content">
+             <h1>Agro Forte, Futuro Sustentável</h1>
+             <p>Conectando produtores conscientes a consumidores responsáveis. Cultivando um amanhã mais verde.</p>
+             <a href="#produtos" class="btn">Explorar Produtos & Máquinas</a>
+         </div>
+     </section>
+     
+     <div class="shop-controls">
+         <div class="search-box">
+             <i class="fas fa-search"></i>
+             <input type="text" id="searchInput" placeholder="O que você está procurando hoje? (Ex: Trator, Café, Mel...)" oninput="filterProducts()">
+         </div>
+         <div class="filter-tags">
+             <button class="tag active" onclick="filterCategory('Todos', this)">Todos</button>
+             <button class="tag" onclick="filterCategory('Orgânico', this)">Orgânicos</button>
+             <button class="tag" onclick="filterCategory('Fresco', this)">Frescos</button>
+             <button class="tag" onclick="filterCategory('Artesanal', this)">Artesanais</button>
+             <button class="tag" onclick="filterCategory('Insumos', this)">Insumos & Sementes</button>
+             <button class="tag tag-maquinas" onclick="filterCategory('Máquinas', this)">Máquinas Agrícolas</button>
+         </div>
+     </div>
+     
+     <section class="products-section" id="produtos">
+         <h2 class="section-title">Produtos & Equipamentos Disponíveis</h2>
+         <div class="products-grid" id="productsGrid"></div>
+     </section>
+     
+     <section class="sell-section" id="vender">
+         <div class="sell-container">
+             <h2 class="section-title" style="font-size: 2rem; margin-top: 0;">Anuncie seu Produto ou Maquinário</h2>
+             <form id="sellForm">
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="productName">Nome do Produto / Modelo</label>
+                         <input type="text" id="productName" placeholder="Ex: Trator Agrícola 75cv ou Queijo Minas" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="productCategory">Categoria</label>
+                         <select id="productCategory" required onchange="adaptFormLabels()">
+                             <option value="Fresco">Frutas, Verduras & Legumes</option>
+                             <option value="Orgânico">Grãos & Certificados Orgânicos</option>
+                             <option value="Artesanal">Doces, Queijos e Conservas</option>
+                             <option value="Insumos">Insumos, Mudas & Sementes</option>
+                             <option value="Máquinas">Máquinas e Equipamentos Agrícolas</option>
+                         </select>
+                     </div>
+                 </div>
+                 
+                 <div class="form-group">
+                     <label id="descLabel" for="productDescription">Descrição do Produto e Certificações</label>
+                     <textarea id="productDescription" rows="3" placeholder="Conte como foi produzido, tempo de uso se for máquina, especificações técnicas, etc." required></textarea>
+                 </div>
+                 
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="productPrice">Preço Unitário (R$)</label>
+                         <input type="number" id="productPrice" step="0.01" placeholder="0.00" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="productLabel">Selo / Tag em Destaque</label>
+                         <select id="productLabel">
+                             <option value="Orgânico">Orgânico Certificado</option>
+                             <option value="Natural">100% Natural</option>
+                             <option value="Fresco">Colhido Hoje</option>
+                             <option value="Artesanal">Feito à Mão</option>
+                             <option value="Sustentável">Eco-friendly</option>
+                             <option value="Máquinas">Maquinário Agrícola</option>
+                         </select>
+                     </div>
+                 </div>
+                 
+                 <div class="form-row">
+                     <div class="form-group">
+                         <label for="shippingMethod">Método de Entrega / Retirada</label>
+                         <select id="shippingMethod">
+                             <option value="Entrega Local">Entrega a Domicílio (Local)</option>
+                             <option value="Retirada">Retirada na Propriedade/Fazenda</option>
+                             <option value="Envio Nacional">Envio para todo o Brasil</option>
+                             <option value="Frete a Combinar">Frete/Transportadora a Combinar</option>
+                         </select>
+                     </div>
+                     <div class="form-group">
+                         <label for="productImage">URL da Imagem</label>
+                         <input type="url" id="productImage" placeholder="https://exemplo.com/imagem.jpg">
+                     </div>
+                 </div>
+                 
+                 <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Publicar Anúncio</button>
+             </form>
+         </div>
+     </section>
+     
+     <footer id="contato">
+         <div class="social-icons">
+             <a href="#"><i class="fab fa-instagram"></i></a>
+             <a href="#"><i class="fab fa-facebook"></i></a>
+             <a href="#"><i class="fab fa-whatsapp"></i></a>
+         </div>
+         <p>&copy; 2026 AgroForte - Todos os direitos reservados</p>
+         <p>Contato: contato@agroforte.com.br | (11) 99999-9999</p>
+     </footer>
+     
+     <div class="modal" id="cartModal">
+         <div class="modal-content">
+             <h2>Seu Carrinho</h2>
+             <div id="cartItems"></div>
+             <div class="total" id="cartTotal">Total: R$ 0,00</div>
+                                             
+             <button class="btn" onclick="checkout()" style="margin-top: 1.5rem; width: 100%; background-color: var(--primary);">Finalizar Pedido</button>
+             <button class="btn" onclick="closeCart()" style="margin-top: 0.5rem; width: 100%; background-color: #777;">Continuar Comprando</button>
+         </div>
+     </div>
+     
+     <script>
+         // Banco de dados expandido com a adição de Máquinas Agrícolas
+         let products = [
+             {
+                 id: 1,
+                 name: "Café Orgânico Especial",
+                 description: "Café arábica cultivado sem agrotóxicos em Minas Gerais, grãos selecionados.",
+                 price: 35.90,
+                 image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Orgânico",
+                 shipping: "Envio Nacional"
+             },
+             {
+                 id: 2,
+                 name: "Mel Silvestre Puro",
+                 description: "Mel 100% puro produzido por abelhas nativas da Mata Atlântica.",
+                 price: 25.00,
+                 image: "https://images.unsplash.com/photo-1587049352847-917187a2f3d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Natural",
+                 shipping: "Envio Nacional"
+             },
+             {
+                 id: 3,
+                 name: "Mini Trator Agrícola Estreito",
+                 description: "Trator ideal para pequenas propriedades, estufas, cafezais e pomares densos. 25 CV semi-novo.",
+                 price: 48000.00,
+                 image: "https://images.unsplash.com/photo-1594144573138-024564c78709?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Máquinas",
+                 shipping: "Frete a Combinar"
+             },
+             {
+                 id: 4,
+                 name: "Cesta de Frutas da Estação",
+                 description: "Mix variado contendo bananas, laranjas, mamão e mangas colhidos no dia.",
+                 price: 45.00,
+                 image: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Fresco",
+                 shipping: "Entrega Local"
+             },
+             {
+                 id: 5,
+                 name: "Adubo Orgânico Compostado",
+                 description: "Excelente composto rico em nutrientes para hortas e jardins urbanos.",
+                 price: 18.50,
+                 image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Insumos",
+                 shipping: "Envio Nacional"
+             },
+             {
+                 id: 6,
+                 name: "Colheitadeira de Café Avançada",
+                 description: "Equipamento eficiente para otimização de colheitas em terrenos planos e semi-declives.",
+                 price: 125000.00,
+                 image: "https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Máquinas",
+                 shipping: "Frete a Combinar"
+             },
+             {
+                 id: 7,
+                 name: "Queijo Canastra Artesanal",
+                 description: "Queijo maturado tradicional de produção familiar com leite cru.",
+                 price: 52.00,
+                 image: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                 badge: "Artesanal",
+                 shipping: "Envio Nacional"
+             }
+         ];
+         
+         let cart = [];
+         let currentCategory = 'Todos';
+         
+         if(localStorage.getItem('agroforteCart')) {
+             cart = JSON.parse(localStorage.getItem('agroforteCart'));
+             updateCart();
+         }
+         
+         // Altera labels dinamicamente se o usuário selecionar máquina no form
+         function adaptFormLabels() {
+             const category = document.getElementById('productCategory').value;
+             const descLabel = document.getElementById('descLabel');
+             const selectLabel = document.getElementById('productLabel');
+                                             
+             if(category === "Máquinas") {
+                 descLabel.textContent = "Especificações Técnicas e Tempo de Uso";
+                 selectLabel.value = "Máquinas";
+             } else {
+                 descLabel.textContent = "Descrição do Produto e Certificações";
+             }
+         }
+         
+         // Renderização inteligente de itens
+         function renderProducts(productsToRender = products) {
+             const grid = document.getElementById('productsGrid');
+             if (productsToRender.length === 0) {
+                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #666;">Nenhum produto ou máquina encontrada nesta seleção.</p>';
+                 return;
+             }
+             
+             grid.innerHTML = productsToRender.map(product => `
+                 <div class="product-card">
+                     <div class="product-image">
+                         <span class="delivery-badge"><i class="fas fa-truck"></i> ${product.shipping}</span>
+                         <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400x300?text=AgroForte+Equipamentos'">
+                     </div>
+                     <div class="product-info">
+                         <span class="product-badge ${product.badge === 'Máquinas' ? 'badge-maquinas' : ''}">${product.badge}</span>
+                         <h3 class="product-title">${product.name}</h3>
+                         <p class="product-description">${product.description}</p>
+                         <div class="product-price">R$ ${product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                         <button class="btn-add-cart" onclick="addToCart(${product.id}, event)" style="${product.badge === 'Máquinas' ? 'background-color: var(--machinery-color);' : ''}">
+                             <i class="fas ${product.badge === 'Máquinas' ? 'fa-tools' : 'fa-cart-plus'}"></i> ${product.badge === 'Máquinas' ? 'Tenho Interesse / Comprar' : 'Adicionar ao Carrinho'}
+                         </button>
+                     </div>
+                 </div>
+             `).join('');
+         }
+         
+         // Filtro por Categorias (Botões)
+         function filterCategory(category, element) {
+             currentCategory = category;
+             document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+             element.classList.add('active');
+             filterProducts();
+         }
+         
+         // Filtro Combinado: Busca por Texto + Botão de Categoria
+         function filterProducts() {
+             const searchText = document.getElementById('searchInput').value.toLowerCase();
+                                             
+             const filtered = products.filter(product => {
+                 const matchesCategory = (currentCategory === 'Todos' || product.badge === currentCategory);
+                 const matchesSearch = product.name.toLowerCase().includes(searchText) || product.description.toLowerCase().includes(searchText);
+                 return matchesCategory && matchesSearch;
+             });
+             
+             renderProducts(filtered);
+         }
+         
+         function addToCart(productId, event) {
+             const product = products.find(p => p.id === productId);
+             if(product) {
+                 cart.push(product);
+                 updateCart();
+                 saveCart();
+                                                                                                    
+                 const btn = event.currentTarget;
+                 btn.style.transform = 'scale(1.05)';
+                 btn.innerHTML = '<i class="fas fa-check"></i> Solicitado!';
+                 setTimeout(() => {
+                     btn.style.transform = 'scale(1)';
+                     btn.innerHTML = product.badge === 'Máquinas' ? '<i class="fas fa-tools"></i> Tenho Interesse / Comprar' : '<i class="fas fa-cart-plus"></i> Adicionar ao Carrinho';
+                 }, 800);
+             }
+         }
+         
+         function removeFromCart(index) {
+             cart.splice(index, 1);
+             updateCart();
+             saveCart();
+             renderCart();
+         }
+         
+         function updateCart() {
+             document.getElementById('cartCount').textContent = cart.length;
+         }
+         
+         function saveCart() {
+             localStorage.setItem('agroforteCart', JSON.stringify(cart));
+         }
+         
+         function openCart() {
+             document.getElementById('cartModal').style.display = 'flex';
+             renderCart();
+         }
+         
+         function closeCart() {
+             document.getElementById('cartModal').style.display = 'none';
+         }
+         
+         function renderCart() {
+             const cartItems = document.getElementById('cartItems');
+             const cartTotal = document.getElementById('cartTotal');
+                                             
+             if(cart.length === 0) {
+                 cartItems.innerHTML = '<p style="text-align: center; padding: 2rem;">Seu carrinho está vazio no momento.</p>';
+                 cartTotal.textContent = 'Total: R$ 0,00';
+                 return;
+             }
+             
+             cartItems.innerHTML = cart.map((item, index) => `
+                 <div class="cart-item">
+                     <div class="cart-item-info">
+                         <img class="cart-item-img" src="${item.image}" onerror="this.src='https://via.placeholder.com/50x50?text=Prod'">
+                         <div>
+                             <strong>${item.name}</strong><br>
+                             <small style="color: var(--primary)">${item.badge} | ${item.shipping}</small>
+                         </div>
+                     </div>
+                     <div style="display: flex; align-items: center; gap: 1rem;">
+                         <span>R$ ${item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                         <span class="remove-item" onclick="removeFromCart(${index})">
+                             <i class="fas fa-trash-alt"></i>
+                         </span>
+                     </div>
+                 </div>
+             `).join('');
+             
+             const total = cart.reduce((sum, item) => sum + item.price, 0);
+             cartTotal.textContent = `Total: R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+         }
+         
+         function checkout() {
+             if(cart.length === 0) return alert("Seu carrinho está vazio!");
+             alert("Pedido enviado! O vendedor/produtor foi notificado e entrará em contato para combinar os detalhes de logística do maquinário ou produtos e as condições de pagamento.");
+             cart = [];
+             updateCart();
+             saveCart();
+             closeCart();
+         }
+         
+         // Formulário de Venda Avançado (Finalizado)
+         document.getElementById('sellForm').addEventListener('submit', function(event) {
+             event.preventDefault();
+             
+             const name = document.getElementById('productName').value;
+             const category = document.getElementById('productCategory').value;
+             const description = document.getElementById('productDescription').value;
+             const price = parseFloat(document.getElementById('productPrice').value);
+             const badge = document.getElementById('productLabel').value;
+             const shipping = document.getElementById('shippingMethod').value;
+             let image = document.getElementById('productImage').value;
+             
+             if(!image) {
+                 image = category === "Máquinas" 
+                     ? "https://via.placeholder.com/400x300?text=Maquina+AgroForte" 
+                     : "https://via.placeholder.com/400x300?text=Produto+AgroForte";
+             }
+             
+             const newProduct = {
+                 id: products.length + 1,
+                 name: name,
+                 description: description,
+                 price: price,
+                 image: image,
+                 badge: badge,
+                 shipping: shipping
+             };
+             
+             products.push(newProduct);
+             renderProducts();
+             
+             document.getElementById('sellForm').reset();
+             adaptFormLabels();
+             alert("Anúncio publicado com sucesso!");
+         });
+
+         /* ==========================================================================
+            FUNÇÕES DE ACESSIBILIDADE (IMPLEMENTADAS AGORA)
+            ========================================================================== */
+         
+         // 1. Função para Aumentar / Diminuir Letra
+         let tamanhoAtual = 100; // Representa 100%
+         function alterarFonte(direcao) {
+             // Limita o tamanho entre 80% e 150% para não quebrar o layout
+             if ((direcao === 1 && tamanhoAtual < 150) || (direcao === -1 && tamanhoAtual > 80)) {
+                 tamanhoAtual += (direcao * 10);
+                 document.documentElement.style.fontSize = tamanhoAtual + '%';
+             }
+         }
+
+         // 2. Função Alto Contraste 
+         function toggleContraste() {
+             document.body.classList.toggle('high-contrast');
+         }
+
+         // 3. Função de Leitura de Página (Síntese de Voz)
+         let lendo = false;
+         let synth = window.speechSynthesis;
+         let utterance = null;
+
+         function toggleLeitura() {
+             // Verifica se o navegador suporta a API de voz
+             if (!('speechSynthesis' in window)) {
+                 alert("Seu navegador não suporta a leitura de texto por voz.");
+                 return;
+             }
+
+             if (lendo) {
+                 synth.cancel();
+                 document.getElementById('txtOuvir').textContent = "Ler Página";
+                 document.getElementById('btnOuvir').querySelector('i').className = "fas fa-volume-up";
+                 lendo = false;
+             } else {
+                 // Captura os textos principais e limpos da página para leitura
+                 let textoParaLer = document.querySelector('.hero-content h1').innerText + ". " + 
+                                    document.querySelector('.hero-content p').innerText + ". " + 
+                                    document.querySelector('.section-title').innerText + ". ";
+                 
+                 utterance = new SpeechSynthesisUtterance(textoParaLer);
+                 utterance.lang = 'pt-BR';
+                 
+                 utterance.onend = function() {
+                     document.getElementById('txtOuvir').textContent = "Ler Página";
+                     document.getElementById('btnOuvir').querySelector('i').className = "fas fa-volume-up";
+                     lendo = false;
+                 };
+
+                 synth.speak(utterance);
+                 document.getElementById('txtOuvir').textContent = "Parar Leitura";
+                 document.getElementById('btnOuvir').querySelector('i').className = "fas fa-volume-mute";
+                 lendo = true;
+             }
+         }
+
+         // Inicialização padrão da vitrine
+         renderProducts();
+     </script>
+</body>
+</html>
